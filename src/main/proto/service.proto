@@ -1,0 +1,53 @@
+option java_package = "com.yxf.serviceframe.entity";
+option java_multiple_files = true;
+
+service Servce
+{
+  rpc method(requestInfo) returns (responseInfo){}
+}
+
+enum RequestType {
+  SAMPLE = 0;
+}
+
+// 请求信息
+message requestInfo {
+
+  required string requestId=1;
+  optional string requestInfo = 2;
+
+  required string info= 3;
+  optional RequestType ReType = 4[default = SAMPLE];
+
+  optional string userId = 5[default = "0"];
+  optional string devid = 6;
+  optional string reservedInfo = 7;
+
+}
+
+// 结果信息
+message responseInfo {
+
+  required string reponseCode = 1;
+  optional string responseInfo = 2;
+
+  enum itemType{
+    SAMPLE_TYPE = 0;
+  }
+
+  optional string highlight= 3;
+  required RequestType ReType = 4[default = SAMPLE];
+
+  required string sessionId = 5;
+  optional string userId = 6;
+
+  message itemInfo {
+    required itemType itemType = 1;
+    required int64 itemId = 2;
+    optional string itemFields = 3;
+  }
+
+  repeated itemInfo itemList = 7;
+  optional string reservedInfo = 8;
+
+}
